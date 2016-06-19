@@ -13,15 +13,18 @@ namespace MicroWeb
 {
 	public class MicroWeb : IMicroWeb
 	{
-		private readonly IocContainer _iocContainer;
+		private IocContainer _iocContainer;
 		private IConfigManager _configManager;
 
 		private IDictionary<string, MicroWebRoute> Routes { get; set; }
 
 		public MicroWeb()
 		{
-			_iocContainer = new IocContainer(RegisterDependencies);
+		}
 
+		public void AppStart()
+		{
+			_iocContainer = new IocContainer(RegisterDependencies);
 			_configManager = _iocContainer.Resolve<IConfigManager>();
 
 			var routeHandler = _iocContainer.Resolve<IRouteHandler>();
@@ -41,6 +44,7 @@ namespace MicroWeb
 			builder.Register<IConfigManager>().Concrete<ConfigManager>().AsSingleton();
 			builder.Register<IConfigLoader>().Concrete<ConfigLoader>();
 
+			builder.Register<IRouteBuilder>().Concrete<RouteBuilder>();
 			builder.Register<IFileSystemProvider>().Concrete<FileSystemProvider>();
 			builder.Register<IJsonReader>().Concrete<JsonReader>();
 		}

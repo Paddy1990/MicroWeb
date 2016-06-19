@@ -18,6 +18,7 @@ namespace MicroWeb.SelfHost
 					"Sorry... The operating system isn't supported! Minimum requirements are 'Windows XP SP2' or 'Server 2003'.");
 
 			_microWeb = new MicroWeb();
+			_microWeb.AppStart();
 
 			_listener = new HttpListener();
 			_prefixes = prefixes;
@@ -27,10 +28,8 @@ namespace MicroWeb.SelfHost
 
 		public void Run()
 		{
-			//When a request comes in, run the ListenerCallback
 			var result = _listener.BeginGetContext(ListenerCallback, null);
 
-			//Wait for an incoming request!
 			result.AsyncWaitHandle.WaitOne();
 		}
 
@@ -62,7 +61,6 @@ namespace MicroWeb.SelfHost
 
 		private HttpListenerContext GetContext(IAsyncResult result)
 		{
-			//Gets the HttpListenerContext
 			return _listener.EndGetContext(result);
 		}
 
@@ -109,8 +107,8 @@ namespace MicroWeb.SelfHost
 				Headers = request.Headers,
 				HttpMethod = request.HttpMethod,
 				QueryStrings = request.QueryString,
-				RawUrl = request.RawUrl,
-				Url = request.Url
+				AbsolutePath = request.RawUrl,
+				Uri = request.Url
 			};
 		}
 

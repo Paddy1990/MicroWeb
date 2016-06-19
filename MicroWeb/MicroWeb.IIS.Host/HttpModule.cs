@@ -39,9 +39,9 @@ namespace MicroWeb.IIS.Host
 //				PhysicalApplicationPath = request.PhysicalApplicationPath,
 //				PhysicalPath = request.PhysicalPath,
 				QueryStrings = request.QueryString,
-				RawUrl = request.RawUrl,
+				AbsolutePath = request.RawUrl,
 //				RequestType = request.RequestType,
-				Url = request.Url
+				Uri = request.Url
 			};
 		}
 

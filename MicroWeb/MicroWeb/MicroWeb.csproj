@@ -57,6 +57,8 @@
     <Compile Include="Config\Models\DefaultConfiguration.cs" />
     <Compile Include="Constants\Directories.cs" />
     <Compile Include="Constants\FileTypes.cs" />
+    <Compile Include="BaseAppStart.cs" />
+    <Compile Include="Constants\Match.cs" />
     <Compile Include="FileSystem\FileSystemProvider.cs" />
     <Compile Include="FileSystem\FileReader.cs" />
     <Compile Include="FileSystem\Interfaces\IFileSystemProvider.cs" />
@@ -66,9 +68,11 @@
     <Compile Include="IMicroWeb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routing\Extensions\MicroWebRequestExtension.cs" />
+    <Compile Include="Routing\Interfaces\IRouteBuilder.cs" />
     <Compile Include="Routing\Interfaces\IRouteHandler.cs" />
     <Compile Include="Routing\Models\MicroWebRoute.cs" />
     <Compile Include="Routing\Models\MicroWebRequest.cs" />
+    <Compile Include="Routing\RouteBuilder.cs" />
     <Compile Include="Routing\RouteHandler.cs" />
     <Compile Include="MicroWeb.cs" />
   </ItemGroup>

@@ -6,5 +6,6 @@ namespace MicroWeb.Config.Models
 	{
 		public string		BaseDirectory		{ get; set; }
 		public List<string>	FileTypes			{ get; set; }
+		public string		RouteMatchType		{ get; set; }
 	}
 }

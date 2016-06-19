@@ -9,8 +9,8 @@ using MicroWeb.Routing.Models;
 namespace MicroWeb.SelfHost
 {
 //	public class MicroWebListener : IMicroWebListener
-	public class MicroWebListener
-	{
+////	public class MicroWebListener
+//	{
 //		private readonly IHttpListener _listener;
 //
 //		public MicroWebListener(IHttpListener listener)

@@ -54,12 +54,17 @@
       <Name>MicroWeb.SelfHost</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Theme\Index\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Theme\Contact\Contact.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Theme\Hello\Hello.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Theme\World\World.html">

@@ -8,7 +8,7 @@ namespace MicroWeb.Routing.Models
 		public NameValueCollection QueryStrings { get; set; }
 		public NameValueCollection Headers { get; set; }
 		public string HttpMethod { get; set; }
-		public string RawUrl { get; set; }
-		public Uri Url { get; set; }
+		public string AbsolutePath { get; set; }
+		public Uri Uri { get; set; }
 	}
 }

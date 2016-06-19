@@ -23,7 +23,8 @@ namespace MicroWeb.Config
 				FileTypes = new List<string> {
 					FileTypes.Css, FileTypes.Html, FileTypes.JavaScript, 
 					FileTypes.Jpeg, FileTypes.Jpg, FileTypes.Png
-				}
+				},
+				RouteMatchType = Match.Route
 			};
 		}
 

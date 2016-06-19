@@ -127,8 +127,8 @@ namespace MicroWeb.SelfHost
 				Headers = request.Headers,
 				HttpMethod = request.HttpMethod,
 				QueryStrings = request.QueryString,
-				RawUrl = request.RawUrl,
-				Url = request.Url
+				AbsolutePath = request.RawUrl,
+				Uri = request.Url
 			};
 		}
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.IO;
+﻿using System.IO;
 using MicroWeb.Routing.Models;
 
 namespace MicroWeb.Routing.Extensions
@@ -9,7 +7,7 @@ namespace MicroWeb.Routing.Extensions
 	{
 		public static bool IsFile(this MicroWebRequest request)
 		{
-			return Path.HasExtension(request.RawUrl);
+			return Path.HasExtension(request.AbsolutePath);
 		}
 	}
 }
