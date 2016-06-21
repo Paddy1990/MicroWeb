@@ -31,7 +31,7 @@ namespace MicroWeb
 			Routes = routeHandler.ConfigureRoutes();
 		}
 
-		public string ResolveRoute(MicroWebRequest microWebRequest)
+		public byte[] ResolveRoute(MicroWebRequest microWebRequest)
 		{
 			var routeHandler = _iocContainer.Resolve<IRouteHandler>();
 			return routeHandler.ResolveRoute(microWebRequest, Routes);
@@ -44,7 +44,6 @@ namespace MicroWeb
 			builder.Register<IConfigManager>().Concrete<ConfigManager>().AsSingleton();
 			builder.Register<IConfigLoader>().Concrete<ConfigLoader>();
 
-			builder.Register<IRouteBuilder>().Concrete<RouteBuilder>();
 			builder.Register<IFileSystemProvider>().Concrete<FileSystemProvider>();
 			builder.Register<IJsonReader>().Concrete<JsonReader>();
 		}

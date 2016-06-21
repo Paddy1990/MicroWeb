@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroWeb.SelfHost", "MicroWeb.SelfHost\MicroWeb.SelfHost.csproj", "{CD842A09-5636-4B9C-B8B8-2C3EA6D44687}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroWeb.SelfHost.ConsoleApp", "MicroWeb.SelfHost.ConsoleApp\MicroWeb.SelfHost.ConsoleApp.csproj", "{1CF7E0FF-FC1A-4C8C-9210-88E6FF7B10A2}"
@@ -16,6 +18,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroWeb", "MicroWeb\MicroWeb.csproj", "{5E6BB1C4-78B9-4A7B-ADA5-81B067811289}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroWeb.SelfHost.Tests", "MicroWeb.SelfHost.Tests\MicroWeb.SelfHost.Tests.csproj", "{9201A57B-F8CE-4F00-BDF6-FD2587348AC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{249C6B8B-AD8E-4C23-AD04-ACE64538DF18}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

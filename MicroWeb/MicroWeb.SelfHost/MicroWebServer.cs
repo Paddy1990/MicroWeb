@@ -96,8 +96,7 @@ namespace MicroWeb.SelfHost
 
 		private byte[] ResolveRouteToBytes(HttpListenerContext ctx)
 		{
-			return Encoding.UTF8.GetBytes(
-				_microWeb.ResolveRoute(MapRequestInfo(ctx.Request)));
+			return _microWeb.ResolveRoute(MapRequestInfo(ctx.Request));
 		}
 
 		private static MicroWebRequest MapRequestInfo(HttpListenerRequest request)

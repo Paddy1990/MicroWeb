@@ -87,8 +87,7 @@ namespace MicroWeb.SelfHost
 
 		private void WriteResponse(HttpListenerContext ctx)
 		{
-			var bytes = Encoding.UTF8.GetBytes(
-				_microWeb.ResolveRoute(MapRequestInfo(ctx.Request)));
+			var bytes = _microWeb.ResolveRoute(MapRequestInfo(ctx.Request));
 
 			ctx.Response.ContentLength64 = bytes.Length;
 			ctx.Response.OutputStream.Write(bytes, 0, bytes.Length);

@@ -6,6 +6,6 @@
 		public const string Page = "page";
 		public const string Master = "page";
 		public const string Component = "component";
-		public const string BaseFileName = "Index.html";
+		public const string FileName = "Page.html";
 	}
 }

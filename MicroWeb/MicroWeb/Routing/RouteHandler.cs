@@ -15,55 +15,34 @@ namespace MicroWeb.Routing
 	{
 		private readonly IConfigManager _configManager;
 		private readonly IFileSystemProvider _fileSystemProvider;
-		private readonly IRouteBuilder _routeBuilder;
 
 		private IDictionary<string, MicroWebRoute> Routes { get; set; }
 		
-		public RouteHandler(IConfigManager configManager, IFileSystemProvider fileSystemProvider, IRouteBuilder routeBuilder)
+		public RouteHandler(IConfigManager configManager, IFileSystemProvider fileSystemProvider)
 		{
 			_configManager = configManager;
 			_fileSystemProvider = fileSystemProvider;
-			_routeBuilder = routeBuilder;
 
 			Routes = new Dictionary<string, MicroWebRoute>();
 		}
 
 		public IDictionary<string, MicroWebRoute> ConfigureRoutes()
 		{
-			//TODO: Get the base directory from config!
-			ConfigureRoute(_configManager.Configuration.BaseDirectory, true);
+			ConfigureRoute(_configManager.Configuration.BaseDirectory);
 			return Routes;
 		}
 
-		private void ConfigureRoute(string baseDirectory, bool isBaseDirectory = false)
+		private void ConfigureRoute(string baseDirectory)
 		{
 			//Get All files in directory
 			var files = _fileSystemProvider.GetFiles(
 				baseDirectory, _configManager.Configuration.FileTypes).ToList();
 
-			//TODO: Think I may have to do something about the base directory / Home page.
-			//Check for an index.html file in the base directory. 
-			//If there isn't one look for index folder.
-			//If there isn't one throw can't find Index page maybe,
-			//or just throw when the user gets to the page? Can'tcfind route/file exception?
-			if (isBaseDirectory)
+			foreach (var fileInfo in files)
 			{
-				//Find the base file.
-				//TODO:Maybe change this to get it from config? or just always look for an index.html page for now...
-				var baseFile = files.FirstOrDefault(f => f.Name == Match.BaseFileName);
-				//TODO: Add check to baseFile...
-				var directory = baseFile.Directory ?? new DirectoryInfo(baseDirectory);
-				var baseRoute = MapBaseRoute(directory, baseFile);
-				Routes[baseRoute.Url] = baseRoute;
-			}
-			else
-			{
-				foreach (var fileInfo in files)
-				{
-					var directory = fileInfo.Directory ?? new DirectoryInfo(baseDirectory);
-					var route = MapRouteModel(directory, fileInfo);
-					Routes[route.Url] = route;
-				}
+				var directory = fileInfo.Directory ?? new DirectoryInfo(baseDirectory);
+				var route = MapRouteModel(directory, fileInfo);
+				Routes[route.Url] = route;
 			}
 
 			var subDirectories = _fileSystemProvider.GetDirectories(baseDirectory, "*", SearchOption.AllDirectories);
@@ -72,47 +51,32 @@ namespace MicroWeb.Routing
 				ConfigureRoute(directoryInfo.FullName);
 		}
 
-		private MicroWebRoute MapBaseRoute(DirectoryInfo baseDirectory, FileInfo fileInfo)
+		public byte[] ResolveRoute(MicroWebRequest request, IDictionary<string, MicroWebRoute> routes)
 		{
-			var route = MapRouteModel(baseDirectory, fileInfo);
-			route.Url = "/" + route.FileName;
-			return route;
-		}
-
-		public byte ResolveRoute(MicroWebRequest request, IDictionary<string, MicroWebRoute> routes)
-		{
-			var uri = request.Uri;
-			
+            MicroWebRoute route;
 			//If it's a request for a route. Infer the html file from the route
 			//Thought the best way to do this was check if the request is for a file, 
 			//rather than check if it's a route that has been requested. E.g. /contact rather than /source.js.
-			if (!request.IsFile())
+			if (request.IsFile())
 			{
-				MicroWebRoute route;
-				var isBaseRoute = request.AbsolutePath == "/" ? true : false;
-				if (isBaseRoute)
-				{
-					if (!routes.ContainsKey(request.AbsolutePath + Match.BaseFileName))
-						throw new Exception("Can't find route...");
+				if (!routes.ContainsKey(request.AbsolutePath))
+					throw new Exception("Can't find route...");
 
-					route = routes[request.AbsolutePath + Match.BaseFileName];
-				}
-				else
-				{
-					if (routes.ContainsKey(request.AbsolutePath + char.ToUpper(request.AbsolutePath.First()) + request.AbsolutePath.Substring(1) + ".html"))
-						throw new Exception("Can't find route...");
-
-					route = routes[request.AbsolutePath + char.ToUpper(request.AbsolutePath.First()) + request.AbsolutePath.Substring(1) + ".html"];
-				}
-				//Read the file and return string - could maybe just return in bytes?
-				//TODO: change to return bytes!
-				return _routeBuilder.Build(route);
+				route = routes[request.AbsolutePath];
+				return ParseFile(route);
 			}
 
-			return "<!DOCTYPE html><html><head><script src='/source.js'></script></head><body><div><p>Hello World</p></div></body></html>";
+		    route = routes[request.AbsolutePath + Match.FileName];
+
+			return ParseFile(route);
 		}
 
-		private MicroWebRoute MapRouteModel(DirectoryInfo baseDirectory, FileInfo fileInfo)
+	    private byte[] ParseFile(MicroWebRoute route)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    private MicroWebRoute MapRouteModel(DirectoryInfo baseDirectory, FileInfo fileInfo)
 		{
 			var filePath = GetAbsolutePath(fileInfo.FullName, _configManager.Configuration.BaseDirectory);
 			return new MicroWebRoute
